@@ -15,19 +15,12 @@ ActiveRecord::Schema.define(version: 2020_04_11_213301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "days", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "movie_functions", force: :cascade do |t|
-    t.bigint "day_id", null: false
+    t.date "day", null: false
     t.bigint "movie_id", null: false
     t.integer "reservations_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["day_id"], name: "index_movie_functions_on_day_id"
     t.index ["movie_id"], name: "index_movie_functions_on_movie_id"
   end
 
@@ -49,7 +42,6 @@ ActiveRecord::Schema.define(version: 2020_04_11_213301) do
     t.index ["movie_function_id"], name: "index_reservations_on_movie_function_id"
   end
 
-  add_foreign_key "movie_functions", "days"
   add_foreign_key "movie_functions", "movies"
   add_foreign_key "reservations", "movie_functions"
 end
